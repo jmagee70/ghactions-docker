@@ -46,6 +46,7 @@ jobs:
           echo "MONGODB_USERNAME: $MONGODB_USERNAME"
           echo "${{ env.PORT }}"
   validate:
+    needs: [test, deploy]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
