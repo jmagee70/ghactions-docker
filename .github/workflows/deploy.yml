@@ -14,11 +14,17 @@ jobs:
     container:
       image: node:18
     env:
-      MONGODB_CONNECTION_PROTOCOL: mongodb+srv
-      MONGODB_CLUSTER_ADDRESS: cluster0.idea3ju.mongodb.net
+      MONGODB_CONNECTION_PROTOCOL: mongodb # real protocol before service container was added - mongodb+srv
+      MONGODB_CLUSTER_ADDRESS: mongodb # real address in mongodb before service container was added - cluster0.idea3ju.mongodb.net
       MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
       MONGODB_PASSWORD: JDS5L8DWimbVXfZ9
       PORT: 8081
+    services:
+      mongodb:
+        image: mongo
+        env:
+          MONGO_INITDB_ROOT_USERNAME: mageepjonathan
+          MONGO_INITDB_ROOT_PASSWORD: JDS5L8DWimbVXfZ9
     steps:
       - name: Get Code
         uses: actions/checkout@v3
