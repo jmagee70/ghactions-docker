@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - dev
+      - feature
 env:
   CACHE_KEY: node-deps
   MONGODB_DB_NAME: gha-demo
@@ -43,6 +43,7 @@ jobs:
         run: |
           echo "MONGODB_USERNAME: $MONGODB_USERNAME"
   build:
+    needs: [test, deploy]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -67,7 +68,7 @@ jobs:
           echo "MONGODB_USERNAME: $MONGODB_USERNAME"
           echo "${{ env.PORT }}"
   validate:
-    needs: [test, deploy]
+    needs: [test, deploy, build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
